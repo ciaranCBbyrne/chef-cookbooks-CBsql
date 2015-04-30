@@ -8,6 +8,10 @@
 #
 #include_recipe 'CBsql::dbSetup'
 
+
+# any attributes (node.default[....]) need to be defined in a file attributes/default.rb
+
+# use the mysql cookbook to install and run mysql
 mysql_service 'default' do
   port '3306'
   version '5.5'
@@ -21,6 +25,7 @@ mysql_config 'default' do
   action :create
 end
 
+# set up database 
 mysql2_chef_gem 'default' do
 	action :install
 end

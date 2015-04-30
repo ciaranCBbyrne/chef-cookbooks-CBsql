@@ -7,9 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#node.default.set['CBmaster']['database']['hosturl'] = db_host
-
 # update check_slave_capacity file with slave ip
+
+# these attributes (node.default[....]) need to be defined in a file attributes/default.rb
+
 ruby_block "update_importer_files" do
 	block do
 		for i in 1..10

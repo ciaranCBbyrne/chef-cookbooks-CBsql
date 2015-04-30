@@ -8,6 +8,7 @@
 #
 
 # allow for master to run sudo commands externally
+
 ruby_block "update_sudo_tty" do
 	block do
 		rc = Chef::Util::FileEdit.new("etc/sudoers")
