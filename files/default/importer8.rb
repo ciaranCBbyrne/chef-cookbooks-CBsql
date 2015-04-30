@@ -6,9 +6,9 @@ require 'open-uri'
 #my = Mysql::Client.new(hostname,username,password,database)
 
 con = Mysql2::Client.new(:hostname => '127.0.0.1',
-					:username => 'root',
-					:password => 'alfiebyrne',
-					:database => 'library')		
+					:username => "#{myusername}",
+					:password => "#{mypassword}",
+					:database => "#{mydbname}")		
 
 con.query("CREATE TABLE IF NOT EXISTS words8(id INT PRIMARY KEY AUTO_INCREMENT, value VARCHAR(50));")
 

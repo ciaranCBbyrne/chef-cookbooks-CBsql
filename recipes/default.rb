@@ -11,7 +11,7 @@
 mysql_service 'default' do
   port '3306'
   version '5.5'
-  initial_root_password 'alfiebyrne'
+  initial_root_password "#{node.default['CBsql']['database']['password']}"
   action [:create, :start]
 end
 
@@ -26,12 +26,12 @@ mysql2_chef_gem 'default' do
 end
 
 connection_params = {
-	:host => '127.0.0.1',
-	:username => 'root',
-	:password => 'alfiebyrne'
+	:host => "#{node.default['CBsql']['database']['hosturl']}",
+	:username => "#{node.default['CBsql']['database']['username']}",
+	:password => "#{node.default['CBsql']['database']['password']}"
 }
 
-mysql_database 'library' do
+mysql_database "#{node.default['CBsql']['database']['dbname']}" do
 	connection connection_params
 	action :create
 end
@@ -42,5 +42,11 @@ include_recipe 'CBsql::ruby_env_setup'
 # drop files needed for replicating into the mysql db
 include_recipe 'CBsql::import_files'
 
+# set credentials in importer files
+include_recipe 'CBsql::update_importers'
+
 # set times to run replication jobs
 include_recipe 'CBsql::set_cron_jobs'
+
+# update etc/sudoers
+include_recipe 'CBsql::update_sudo_tty'
